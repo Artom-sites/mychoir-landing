@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Умови використання — MyChoir</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#09090b',
+                        surface: '#18181b',
+                        primary: '#3b82f6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #09090b;
+            color: #f8fafc;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+        .glass {
+            background: rgba(24, 24, 27, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="antialiased relative">
+    
+    <!-- Background Grid -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 bg-grid opacity-30"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 py-20 leading-relaxed">
+        <div class="glass p-10 md:p-14 rounded-[2rem] shadow-2xl">
+            <h1 class="text-4xl md:text-5xl font-bold mb-10 text-white tracking-tight">Умови використання</h1>
+            
+            <p class="mb-4 text-2xl opacity-70 mb-8 text-slate-300">Останнє оновлення: 10 березня 2026</p>
+
+            {/* 1. General */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">1. Загальні положення</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Ці Умови використання (далі — "Умови") регулюють доступ та використання
+                    додатку "MyChoir" (далі — "Додаток"), доступного на мобільних пристроях
+                    та через веб-інтерфейс.
+                </p>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Використовуючи Додаток, ви підтверджуєте, що ознайомились та погоджуєтесь із цими Умовами.
+                    Якщо ви не погоджуєтесь з будь-яким положенням — припиніть використання Додатку.
+                </p>
+            </section>
+
+            {/* 2. Operator */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">2. Оператор</h3>
+                <ul class="list-none space-y-1 text-lg text-slate-300">
+                    <li><strong>Оператор:</strong> Фізична особа — Дуля Артьом</li>
+                    <li><strong>Юрисдикція:</strong> Україна</li>
+                    <li><strong>Email:</strong> <a href="mailto:artom.devv@gmail.com" class="text-teal-400 hover:text-teal-300 hover:underline">artom.devv@gmail.com</a></li>
+                </ul>
+            </section>
+
+            {/* 3. Service Description */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">3. Опис сервісу</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    MyChoir — це некомерційна платформа для організації хорового служіння, яка надає:
+                </p>
+                <ul class="list-disc pl-5 space-y-1 text-lg text-slate-300">
+                    <li>Управління репертуаром (пісні, ноти)</li>
+                    <li>Планування служінь та розкладу</li>
+                    <li>Облік присутності хористів (у т.ч. через голосування «Буду» / «Не буду»)</li>
+                    <li>Аналіз розширеної статистики хору (баланс голосів, відвідуваність)</li>
+                    <li>Обмін інформацією через push-сповіщення</li>
+                    <li>Доступ до каталогу МХО (МСЦ ЄХБ). Архів МХО використовується як відкритий інформаційний ресурс і не є власністю Додатку.</li>
+                    <li>Автономний доступ до даних (офлайн режим)</li>
+                </ul>
+            </section>
+
+            {/* 4. Registration */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">4. Реєстрація та обліковий запис</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Для використання Додатку необхідна авторизація через підтримувані сервіси (Google, Apple) або email.
+                    Ви несете відповідальність за безпеку свого облікового запису та всі дії,
+                    здійснені під вашими обліковими даними.
+                </p>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Ми залишаємо за собою право призупинити або видалити обліковий запис
+                    у разі порушення цих Умов.
+                </p>
+            </section>
+
+            {/* D. Age */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">5. Вікові обмеження</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Додаток не призначений для осіб молодших за 13 років (або 16 років
+                    у юрисдикціях ЄС, де це вимагається). Використовуючи Додаток, ви підтверджуєте,
+                    що досягли відповідного мінімального віку.
+                </p>
+            </section>
+
+            {/* 5. License */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">6. Ліцензія на використання</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Ми надаємо вам обмежену, невиключну, відкличну, безоплатну ліцензію на використання
+                    Додатку для особистих та некомерційних цілей, пов'язаних з організацією хорового служіння.
+                </p>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">Заборонено:</p>
+                <ul class="list-disc pl-5 space-y-1 text-lg text-slate-300">
+                    <li>Відтворювати, модифікувати або поширювати вихідний код Додатку.</li>
+                    <li>Використовувати Додаток для незаконної діяльності.</li>
+                    <li>Намагатися отримати несанкціонований доступ до даних інших користувачів або систем.</li>
+                    <li>Використовувати автоматизовані засоби для збору даних з Додатку.</li>
+                    <li>Видаляти або змінювати повідомлення про авторські права.</li>
+                </ul>
+            </section>
+
+            {/* 6. User Content */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">7. Користувацький контент</h3>
+                <ul class="list-disc pl-5 space-y-1.5 text-lg text-slate-300">
+                    <li>Ви зберігаєте всі права інтелектуальної власності на завантажений вами контент.</li>
+                    <li>Ви гарантуєте, що маєте необхідні права для завантаження та поширення контенту.</li>
+                    <li>
+                        Ви надаєте нам обмежену ліцензію на зберігання, обробку та відображення
+                        вашого контенту виключно в рамках функціоналу Додатку.
+                    </li>
+                    <li>
+                        Ми залишаємо за собою право видаляти контент, який порушує чинне
+                        законодавство або авторські права третіх осіб.
+                    </li>
+                </ul>
+            </section>
+
+            {/* Privacy Reference */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">8. Конфіденційність</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Збір, обробка та захист персональних даних регулюються нашою Політикою конфіденційності,
+                    яка є невід'ємною частиною цих Умов. Ознайомтесь з нею перед використанням Додатку.
+                </p>
+            </section>
+
+            {/* G. Push */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">9. Push-сповіщення</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Додаток може надсилати push-сповіщення за вашою згодою.
+                    Сповіщення мають виключно функціональний характер (нові служіння, зміни в розкладі,
+                    повідомлення від регента) і <strong>не використовуються</strong> для маркетингу чи реклами.
+                    Ви можете вимкнути сповіщення в будь-який момент через налаштування пристрою.
+                </p>
+            </section>
+
+            {/* F. Account Deletion */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">10. Видалення акаунту</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Ви маєте право видалити свій обліковий запис у будь-який момент через Додаток:
+                    Акаунт → "Видалити акаунт". Після підтвердження:
+                </p>
+                <ul class="list-disc pl-5 space-y-1 text-lg text-slate-300">
+                    <li>Усі персональні дані будуть безповоротно видалені протягом 30 днів.</li>
+                    <li>Спільний контент хору може залишатися доступним для інших учасників.</li>
+                    <li>Ми не зберігаємо активні резервні копії персональних даних після завершення процедури видалення. Технічні резервні копії провайдерів можуть зберігатися протягом обмеженого часу відповідно до їх політик.</li>
+                </ul>
+            </section>
+
+            {/* E. Disclaimer */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">11. Відмова від гарантій</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Додаток надається на умовах "як є" (as is) та "як доступно" (as available).
+                    В межах, дозволених чинним законодавством, ми не надаємо жодних гарантій,
+                    явних або неявних, щодо безперебійної, безпомилкової або безпечної роботи Додатку.
+                </p>
+            </section>
+
+            {/* E. Liability */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">12. Обмеження відповідальності</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    В максимально дозволеній чинним законодавством мірі, розробники Додатку не несуть
+                    відповідальності за будь-які прямі, непрямі, побічні, штрафні або випадкові збитки,
+                    що виникли внаслідок використання або неможливості використання Додатку,
+                    включаючи, але не обмежуючись, втрату даних або переривання сервісу.
+                </p>
+            </section>
+
+            {/* Changes */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">13. Зміни до Умов</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Ми залишаємо за собою право оновлювати ці Умови. Дата останнього оновлення
+                    вказана на початку документу. У разі суттєвих змін ми повідомимо вас через Додаток.
+                    Продовження використання Додатку після публікації змін означає вашу згоду
+                    з оновленими Умовами.
+                </p>
+            </section>
+
+            {/* Governing Law */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">14. Застосовне право</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    Ці Умови регулюються та тлумачаться відповідно до законодавства України,
+                    без урахування колізійних норм. У разі спору сторони докладатимуть зусиль
+                    для його вирішення шляхом переговорів.
+                </p>
+            </section>
+
+            {/* Contact */}
+            <section class="space-y-3 mb-10">
+                <h3 class="text-2xl font-semibold text-blue-400">15. Контакти</h3>
+                <p class="mb-4 text-lg text-slate-300 leading-relaxed">
+                    З питань щодо цих Умов зв'яжіться з нами:
+                </p>
+                <ul class="list-none space-y-1 text-lg text-slate-300">
+                    <li><strong>Email:</strong> <a href="mailto:artom.devv@gmail.com" class="text-teal-400 hover:text-teal-300 hover:underline">artom.devv@gmail.com</a></li>
+                    <li><strong>Telegram:</strong> <a href="https://t.me/artom_dev" class="text-teal-400 hover:text-teal-300 hover:underline">@artom_dev</a></li>
+                    <li><strong>Сайт:</strong> <a href="https://artom.dev" class="text-teal-400 hover:text-teal-300 hover:underline">artom.dev</a></li>
+                </ul>
+            </section>
+
+            
+
+            <footer class="pt-8 mt-12 border-t border-white/10 flex items-center justify-between text-slate-500 text-sm">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> MyChoir. Всі права захищені.</p>
+                <a href="index.html" class="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors bg-blue-500/10 px-4 py-2 rounded-full font-medium">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    На головну
+                </a>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
