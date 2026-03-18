@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyChoir — Управління хором. По-новому.</title>
+    <meta name="description" content="Розклад, статистика та ноти в одному сучасному додатку для вашого хору.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#040d12',
+                        surface: '#0f172a',
+                        primary: '#38bdf8'
+                    },
+                    fontFamily: {
+                        sans: ['SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles for Animations -->
+    <style>
+        body {
+            background-color: #040d12;
+            color: #f8fafc;
+        }
+        
+        /* Smooth glowing background in Hero */
+        .hero-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.15) 0%, transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image hover effect */
+        .app-screen {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.05);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .app-screen:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 top-0 bg-background/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <span class="font-bold tracking-tight text-xl">MyChoir</span>
+            <a href="#download" class="text-sm font-semibold bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition-colors">Завантажити</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-6 min-h-screen flex flex-col items-center justify-center text-center">
+        <div class="hero-glow"></div>
+        
+        <div class="max-w-4xl mx-auto reveal">
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-6 text-gradient">Управління хором.<br>По-новому.</h1>
+            <p class="text-xl md:text-2xl text-slate-400 mb-10 max-w-2xl mx-auto font-medium">Розклад, статистика та ноти в одному сучасному додатку для всієї команди.</p>
+        </div>
+
+        <div class="mt-8 relative max-w-sm mx-auto reveal" style="transition-delay: 200ms;">
+            <img src="images/01_screenshot.png" alt="Головний екран MyChoir" class="app-screen rounded-[40px] w-full h-auto border-[6px] border-[#1e293b]">
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+    <!-- Feature 1 -->
+    <section class="py-24 px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1 relative max-w-[300px] mx-auto reveal">
+                <img src="images/02_screenshot.png" alt="Розклад служінь" class="app-screen rounded-[40px] w-full h-auto border-[6px] border-[#1e293b]">
+            </div>
+            <div class="order-1 md:order-2 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Плануйте служіння<br>разом з хором.</h2>
+                <p class="text-lg text-slate-400">Відмічайте свою присутність одним дотиком. Без хаосу у чатах. Швидко. Просто. Усі знають, хто буде на репетиції чи служінні.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 2 -->
+    <section class="py-24 px-6 bg-surface/30">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-gradient">Усі ноти у вашій кишені.</h2>
+                <p class="text-lg text-slate-400">Глобальний архів тисяч партитур та власна бібліотека вашого хору. Шукайте та зберігайте пісні. Працює швидко і навіть без інтернету.</p>
+            </div>
+            <div class="relative max-w-[300px] mx-auto reveal">
+                <img src="images/03_screenshot.png" alt="Архів пісень" class="app-screen rounded-[40px] w-full h-auto border-[6px] border-[#1e293b]">
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 3 -->
+    <section class="py-24 px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1 relative max-w-[300px] mx-auto reveal">
+                <img src="images/04_screenshot.png" alt="Читання нот" class="app-screen rounded-[40px] w-full h-auto border-[6px] border-[#1e293b]">
+            </div>
+            <div class="order-1 md:order-2 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Читайте ноти<br>прямо з екрана.</h2>
+                <p class="text-lg text-slate-400">Вбудований PDF-рідер. Зручний перегляд партитур та окремих партій прямо під час репетиції.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 4 -->
+    <section class="py-24 px-6 bg-surface/30">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-gradient">Прозора аналітика.</h2>
+                <p class="text-lg text-slate-400">Відстежуйте динаміку хору. Детальна статистика відвідуваності та пропусків для кожного хориста за будь-який період.</p>
+            </div>
+            <div class="relative max-w-[300px] mx-auto reveal">
+                <img src="images/06_screenshot.png" alt="Статистика" class="app-screen rounded-[40px] w-full h-auto border-[6px] border-[#1e293b]">
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="download" class="py-32 px-6 text-center reveal">
+        <h2 class="text-5xl font-bold tracking-tight mb-6">Готові співати разом?</h2>
+        <p class="text-xl text-slate-400 mb-10">Завантажуйте MyChoir сьогодні.</p>
+        <button class="bg-white text-black text-lg font-bold px-8 py-4 rounded-full hover:scale-105 active:scale-95 transition-all shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+            Завантажити в App Store
+        </button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/5 text-center text-slate-500 text-sm">
+        <p>&copy; 2026 Artem. Усі права захищені.</p>
+        <div class="mt-4 flex justify-center gap-6">
+            <a href="#" class="hover:text-white transition-colors">Підтримка</a>
+            <a href="#" class="hover:text-white transition-colors">Політика конфіденційності</a>
+        </div>
+    </footer>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
