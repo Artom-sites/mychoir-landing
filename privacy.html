@@ -1,40 +1,93 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Політика конфіденційності — MyChoir</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#030712',
+                        surface: '#111827',
+                        primary: '#3b82f6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
     <style>
-        body { background-color: #040d12; color: #f8fafc; font-family: sans-serif; }
+        body {
+            background-color: #030712;
+            color: #f8fafc;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+        .glass {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
     </style>
 </head>
-<body class="p-8 max-w-3xl mx-auto leading-relaxed">
-    <h1 class="text-3xl font-bold mb-8">Політика конфіденційності</h1>
+<body class="antialiased relative">
     
-    <section class="mb-6">
-        <h2 class="text-xl font-semibold mb-2">1. Яку інформацію ми збираємо?</h2>
-        <p>Ми збираємо лише вашу електронну адресу (Email) виключно для цілей аутентифікації та безпечного входу в додаток через сервіс Firebase Auth.</p>
-    </section>
+    <!-- Background Grid -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 bg-grid opacity-30"></div>
+    </div>
 
-    <section class="mb-6">
-        <h2 class="text-xl font-semibold mb-2">2. Як ми використовуємо дані?</h2>
-        <p>Ваш Email використовується тільки для створення вашого облікового запису та ідентифікації вас як учасника конкретного хору. Ми не використовуємо вашу пошту для розсилок або реклами.</p>
-    </section>
+    <div class="relative z-10 max-w-3xl mx-auto px-6 py-20 leading-relaxed">
+        <div class="glass p-10 rounded-[2rem] shadow-2xl">
+            <h1 class="text-4xl font-bold mb-10 text-white tracking-tight">Політика конфіденційності</h1>
+            
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-3 text-blue-400">1. Яку інформацію ми збираємо?</h2>
+                <p class="text-slate-300 text-lg">Ми збираємо лише вашу електронну адресу (Email) виключно для цілей аутентифікації та безпечного входу в додаток через сервіс Firebase Auth.</p>
+            </section>
 
-    <section class="mb-6">
-        <h2 class="text-xl font-semibold mb-2">3. Передача даних третім особам</h2>
-        <p>Ми не передаємо, не продаємо і не розповсюджуємо ваші дані стороннім компаніям. Ваші дані зберігаються на захищених серверах Google Firebase.</p>
-    </section>
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-3 text-blue-400">2. Як ми використовуємо дані?</h2>
+                <p class="text-slate-300 text-lg">Ваш Email використовується тільки для створення вашого облікового запису та ідентифікації вас як учасника конкретного хору. Ми не використовуємо вашу пошту для розсилок або реклами.</p>
+            </section>
 
-    <section class="mb-6">
-        <h2 class="text-xl font-semibold mb-2">4. Зберігання та видалення</h2>
-        <p>Ви можете видалити свій обліковий запис у будь-який момент через налаштування додатка або звернувшись до адміністратора вашого хору.</p>
-    </section>
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-3 text-blue-400">3. Передача даних третім особам</h2>
+                <p class="text-slate-300 text-lg">Ми не передаємо, не продаємо і не розповсюджуємо ваші дані стороннім компаніям. Ваші дані зберігаються на захищених серверах Google Firebase.</p>
+            </section>
 
-    <footer class="mt-12 text-slate-500 text-sm">
-        <p>&copy; 2026 MyChoir. Всі права захищені.</p>
-        <a href="index.html" class="text-blue-400 hover:underline">Повернутися на головну</a>
-    </footer>
+            <section class="mb-10">
+                <h2 class="text-2xl font-semibold mb-3 text-blue-400">4. Зберігання та видалення</h2>
+                <p class="text-slate-300 text-lg">Ви можете видалити свій обліковий запис у будь-який момент через налаштування додатка або звернувшись до адміністратора вашого хору.</p>
+            </section>
+
+            <footer class="pt-8 border-t border-white/10 flex items-center justify-between text-slate-500 text-sm">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> MyChoir. Всі права захищені.</p>
+                <a href="index.html" class="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors bg-blue-500/10 px-4 py-2 rounded-full font-medium">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    На головну
+                </a>
+            </footer>
+        </div>
+    </div>
 </body>
 </html>

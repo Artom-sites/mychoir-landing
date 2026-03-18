@@ -6,6 +6,11 @@
     <title>MyChoir — Управління хором. По-новому.</title>
     <meta name="description" content="Розклад, статистика та ноти в одному сучасному додатку для вашого хору.">
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,159 +18,364 @@
             theme: {
                 extend: {
                     colors: {
-                        background: '#040d12',
-                        surface: '#0f172a',
-                        primary: '#38bdf8'
+                        background: '#030712', /* tailwind gray-950 */
+                        surface: '#111827', /* tailwind gray-900 */
+                        primary: '#3b82f6', /* blue-500 */
+                        accent: '#8b5cf6', /* violet-500 */
                     },
                     fontFamily: {
-                        sans: ['SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
                     }
                 }
             }
         }
     </script>
     
-    <!-- Custom Styles for Animations -->
+    <!-- Custom Styles -->
     <style>
         body {
-            background-color: #040d12;
+            background-color: #030712;
             color: #f8fafc;
+            overflow-x: hidden;
         }
-        
-        /* Smooth glowing background in Hero */
-        .hero-glow {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.15) 0%, transparent 60%);
-            z-index: -1;
-            pointer-events: none;
+
+        /* Ambient Glow Grid Background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         /* Scroll reveal animation */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Image hover effect */
-        .app-screen {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.05);
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        /* iPhone Frame Wrapper */
+        .iphone-frame {
+            position: relative;
+            border-radius: 44px;
+            padding: 10px;
+            background: linear-gradient(145deg, #1f2937, #0f172a);
+            box-shadow: 
+                0 0 0 1px rgba(255,255,255,0.1),
+                inset 0 0 0 2px rgba(0,0,0,0.8),
+                0 25px 50px -12px rgba(0,0,0,0.5),
+                0 0 80px -20px rgba(59, 130, 246, 0.3);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .app-screen:hover {
-            transform: translateY(-10px) scale(1.02);
+        
+        .iphone-frame:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 
+                0 0 0 1px rgba(255,255,255,0.15),
+                inset 0 0 0 2px rgba(0,0,0,0.8),
+                0 35px 60px -15px rgba(0,0,0,0.6),
+                0 0 120px -20px rgba(139, 92, 246, 0.4);
         }
 
+        .iphone-screen {
+            border-radius: 34px;
+            overflow: hidden;
+            background-color: #000;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Dynamic Gradients */
         .text-gradient {
-            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            background: linear-gradient(to right bottom, #ffffff, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .text-gradient-primary {
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* App Store Button */
+        .btn-apple {
+            background: #fff;
+            color: #000;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .btn-apple:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden">
+<body>
+
+    <!-- Background Grid & Glowing Orbs -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 bg-grid opacity-30"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[40rem] h-[40rem] bg-purple-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+    </div>
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 top-0 bg-background/80 backdrop-blur-md border-b border-white/5">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <span class="font-bold tracking-tight text-xl">MyChoir</span>
-            <a href="#download" class="text-sm font-semibold bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition-colors">Завантажити</a>
+    <nav class="fixed w-full z-50 top-0 glass">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <!-- App Icon Placeholder (Optional) -->
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                    </svg>
+                </div>
+                <span class="font-bold tracking-tight text-xl text-white">MyChoir</span>
+            </div>
+            <a href="#download" class="btn-apple text-sm font-bold px-6 py-2.5 rounded-full flex items-center gap-2">
+                <svg class="w-4 h-4" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                Встановити
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 px-6 min-h-screen flex flex-col items-center justify-center text-center">
-        <div class="hero-glow"></div>
+    <section class="relative pt-40 pb-20 px-6 min-h-[100vh] flex flex-col items-center justify-center text-center z-10">
         
         <div class="max-w-4xl mx-auto reveal">
-            <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-6 text-gradient">Управління хором.<br>По-новому.</h1>
-            <p class="text-xl md:text-2xl text-slate-400 mb-10 max-w-2xl mx-auto font-medium">Розклад, статистика та ноти в одному сучасному додатку для всієї команди.</p>
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 border border-blue-500/30">
+                <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-300">Революція у репетиціях</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-[1.1]">
+                Управління хором. <br>
+                <span class="text-gradient-primary">По-новому.</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-slate-400 mb-12 max-w-2xl mx-auto font-medium leading-relaxed">
+                Забудьте про хаос у чатах. Розклад, статистика та нотний архів в одному екосистемному додатку.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#download" class="btn-apple text-lg font-bold px-8 py-4 rounded-full flex items-center justify-center gap-3 w-full sm:w-auto">
+                    <svg class="w-6 h-6" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                    Завантажити безкоштовно
+                </a>
+            </div>
         </div>
 
-        <div class="mt-8 relative max-w-sm mx-auto reveal" style="transition-delay: 200ms;">
-            <img src="images/01_screenshot.png" alt="Головний екран MyChoir" class="app-screen rounded-[40px] w-full h-auto border-[6px] border-[#1e293b]">
+        <div class="mt-20 relative max-w-md mx-auto reveal animate-float z-20" style="transition-delay: 200ms;">
+            <div class="absolute inset-0 bg-blue-500/20 blur-[80px] rounded-full"></div>
+            <div class="iphone-frame">
+                <div class="iphone-screen">
+                    <img src="images/01_screenshot.png" alt="Головний екран MyChoir" class="w-full h-auto">
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Divider -->
-    <div class="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-
-    <!-- Feature 1 -->
-    <section class="py-24 px-6">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div class="order-2 md:order-1 relative max-w-[300px] mx-auto reveal">
-                <img src="images/02_screenshot.png" alt="Розклад служінь" class="app-screen rounded-[40px] w-full h-auto border-[6px] border-[#1e293b]">
+    <!-- Feature 1: Scheduling -->
+    <section class="relative py-32 px-6 overflow-hidden z-10">
+        <div class="absolute top-1/2 left-0 w-[50rem] h-[50rem] bg-blue-900/10 rounded-full mix-blend-screen filter blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+            <div class="order-2 lg:order-1 relative max-w-sm mx-auto lg:ml-0 reveal animate-float-delayed">
+                <div class="absolute top-1/4 -right-12 w-32 h-32 bg-purple-500/30 blur-[40px] rounded-full"></div>
+                <div class="iphone-frame">
+                    <div class="iphone-screen">
+                        <img src="images/02_screenshot.png" alt="Розклад служінь" class="w-full h-auto">
+                    </div>
+                </div>
             </div>
-            <div class="order-1 md:order-2 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Плануйте служіння<br>разом з хором.</h2>
-                <p class="text-lg text-slate-400">Відмічайте свою присутність одним дотиком. Без хаосу у чатах. Швидко. Просто. Усі знають, хто буде на репетиції чи служінні.</p>
+            <div class="order-1 lg:order-2 reveal">
+                <div class="inline-flex items-center justify-center p-3 glass rounded-2xl mb-6 text-blue-400">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Плануйте репетиції<br><span class="text-gradient">без зайвих слів.</span></h2>
+                <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                    Відмічайте свою присутність на служіннях в один дотик. Регент завжди знатиме, хто з хористів буде присутній, і зможе побачити баланс голосів (сопрано, альт, тенор, бас) ще до початку репетиції.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <span class="text-slate-300 font-medium">Миттєве підтвердження участі</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <span class="text-slate-300 font-medium">Автоматичний підрахунок балансу партій</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Feature 2 -->
-    <section class="py-24 px-6 bg-surface/30">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <!-- Feature 2: Library -->
+    <section class="relative py-32 px-6 overflow-hidden z-10">
+        <div class="absolute top-1/2 right-0 w-[50rem] h-[50rem] bg-purple-900/10 rounded-full mix-blend-screen filter blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
             <div class="reveal">
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-gradient">Усі ноти у вашій кишені.</h2>
-                <p class="text-lg text-slate-400">Глобальний архів тисяч партитур та власна бібліотека вашого хору. Шукайте та зберігайте пісні. Працює швидко і навіть без інтернету.</p>
+                <div class="inline-flex items-center justify-center p-3 glass rounded-2xl mb-6 text-purple-400">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Усі ноти у<br><span class="text-gradient-primary">вашій кишені.</span></h2>
+                <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                    Глобальний архів з тисячами партитур та власна бібліотека вашого хору завжди під рукою. Шукайте потрібні пісні миттєво і забувайте про стоси роздруківок.
+                </p>
+                <div class="grid grid-cols-2 gap-6 mt-8">
+                    <div class="glass p-5 rounded-2xl">
+                        <div class="text-2xl font-bold text-white mb-1">Офлайн</div>
+                        <div class="text-sm text-slate-400">ноти доступні навіть без інтернету</div>
+                    </div>
+                    <div class="glass p-5 rounded-2xl">
+                        <div class="text-2xl font-bold text-white mb-1">Швидко</div>
+                        <div class="text-sm text-slate-400">миттєвий пошук по всьому архіву</div>
+                    </div>
+                </div>
             </div>
-            <div class="relative max-w-[300px] mx-auto reveal">
-                <img src="images/03_screenshot.png" alt="Архів пісень" class="app-screen rounded-[40px] w-full h-auto border-[6px] border-[#1e293b]">
+            <div class="relative max-w-sm mx-auto lg:mr-0 reveal animate-float">
+                <div class="absolute top-1/4 -left-12 w-32 h-32 bg-blue-500/30 blur-[40px] rounded-full"></div>
+                <div class="iphone-frame">
+                    <div class="iphone-screen">
+                        <img src="images/03_screenshot.png" alt="Архів пісень" class="w-full h-auto">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Feature 3 -->
-    <section class="py-24 px-6">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div class="order-2 md:order-1 relative max-w-[300px] mx-auto reveal">
-                <img src="images/04_screenshot.png" alt="Читання нот" class="app-screen rounded-[40px] w-full h-auto border-[6px] border-[#1e293b]">
+    <!-- Feature 3: PDF Reader & Printing (Using screenshot 04) -->
+    <section class="relative py-32 px-6 overflow-hidden z-10">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+            <div class="order-2 lg:order-1 relative max-w-sm mx-auto lg:ml-0 reveal animate-float-delayed">
+                <div class="iphone-frame">
+                    <div class="iphone-screen">
+                        <img src="images/04_screenshot.png" alt="Читання нот" class="w-full h-auto">
+                    </div>
+                </div>
             </div>
-            <div class="order-1 md:order-2 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Читайте ноти<br>прямо з екрана.</h2>
-                <p class="text-lg text-slate-400">Вбудований PDF-рідер. Зручний перегляд партитур та окремих партій прямо під час репетиції.</p>
+            <div class="order-1 lg:order-2 reveal">
+                <div class="inline-flex items-center justify-center p-3 glass rounded-2xl mb-6 text-pink-400">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Співайте прямо<br><span class="text-gradient">з екрана.</span></h2>
+                <p class="text-lg text-slate-400 leading-relaxed">
+                    Вбудований професійний PDF-рідер. Відкривайте партитури в один клік або генеруйте програму служіння для друку прямо з додатку.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Feature 4 -->
-    <section class="py-24 px-6 bg-surface/30">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <!-- Feature 4: Statistics (Using screenshot 06) -->
+    <section class="relative py-32 px-6 overflow-hidden z-10">
+        <div class="absolute top-1/2 left-1/2 bg-blue-600/5 w-[100vw] h-[100vh] -translate-x-1/2 -translate-y-1/2 rounded-[100%] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
             <div class="reveal">
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-gradient">Прозора аналітика.</h2>
-                <p class="text-lg text-slate-400">Відстежуйте динаміку хору. Детальна статистика відвідуваності та пропусків для кожного хориста за будь-який період.</p>
+                <div class="inline-flex items-center justify-center p-3 glass rounded-2xl mb-6 text-green-400">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6"><span class="text-gradient-primary">Прозора</span> аналітика.</h2>
+                <p class="text-lg text-slate-400 leading-relaxed">
+                    Слідкуйте за активністю хору. Детальна статистика відвідуваності дозволяє регенту оптимізувати склад хору і об'єктивно оцінювати залученість кожного учасника.
+                </p>
             </div>
-            <div class="relative max-w-[300px] mx-auto reveal">
-                <img src="images/06_screenshot.png" alt="Статистика" class="app-screen rounded-[40px] w-full h-auto border-[6px] border-[#1e293b]">
+            <div class="relative max-w-sm mx-auto lg:mr-0 reveal animate-float">
+                <div class="iphone-frame">
+                    <div class="iphone-screen">
+                        <img src="images/06_screenshot.png" alt="Статистика" class="w-full h-auto">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section id="download" class="py-32 px-6 text-center reveal">
-        <h2 class="text-5xl font-bold tracking-tight mb-6">Готові співати разом?</h2>
-        <p class="text-xl text-slate-400 mb-10">Завантажуйте MyChoir сьогодні.</p>
-        <button class="bg-white text-black text-lg font-bold px-8 py-4 rounded-full hover:scale-105 active:scale-95 transition-all shadow-[0_0_40px_rgba(255,255,255,0.3)]">
-            Завантажити в App Store
-        </button>
+    <!-- Big CTA Section -->
+    <section id="download" class="relative py-40 px-6 overflow-hidden z-10">
+        <div class="max-w-5xl mx-auto relative reveal">
+            <!-- Glow background for the card -->
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-[3rem] blur-3xl opacity-30"></div>
+            
+            <div class="relative glass rounded-[3rem] p-12 md:p-20 text-center border-t-2 border-l-2 border-white/10 shadow-2xl overflow-hidden">
+                <!-- Inner decorative gradient -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full filter blur-[80px]"></div>
+                
+                <h2 class="text-5xl md:text-6xl font-black tracking-tight mb-6 relative z-10 text-white">
+                    Готові співати з нами?
+                </h2>
+                <p class="text-xl md:text-2xl text-slate-300 mb-12 max-w-2xl mx-auto font-medium relative z-10">
+                    Приєднуйтеся до нового покоління управління хором. Доступно безкоштовно.
+                </p>
+                <div class="flex justify-center relative z-10">
+                    <a href="https://apps.apple.com/" target="_blank" class="btn-apple text-black text-xl font-bold px-10 py-5 rounded-full flex items-center gap-3">
+                        <svg class="w-7 h-7" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                        Завантажити в App Store
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 border-t border-white/5 text-center text-slate-500 text-sm">
-        <p>&copy; 2026 Artem. Усі права захищені.</p>
-        <div class="mt-4 flex justify-center gap-6">
-            <a href="#" class="hover:text-white transition-colors">Підтримка</a>
-            <a href="#" class="hover:text-white transition-colors">Політика конфіденційності</a>
+    <footer class="relative z-10 border-t border-white/5 bg-background">
+        <div class="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center gap-2 mb-6 md:mb-0 text-white font-bold text-lg">
+                <svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                </svg>
+                MyChoir
+            </div>
+            
+            <div class="flex gap-8 text-sm font-medium text-slate-400">
+                <a href="#" class="hover:text-white transition-colors">Підтримка</a>
+                <a href="/privacy.html" class="hover:text-white transition-colors">Політика конфіденційності</a>
+                <a href="#" class="hover:text-white transition-colors">Умови використання</a>
+            </div>
+        </div>
+        <div class="text-center pb-8 text-sm text-slate-600">
+            &copy; <script>document.write(new Date().getFullYear())</script> Artem Dulia. Усі права захищені.
         </div>
     </footer>
 
@@ -176,7 +386,7 @@
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
+                var elementVisible = 100;
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add("active");
                 }
@@ -184,7 +394,7 @@
         }
         window.addEventListener("scroll", reveal);
         // Trigger once on load
-        reveal();
+        setTimeout(reveal, 100);
     </script>
 </body>
 </html>
