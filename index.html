@@ -18,8 +18,8 @@
             theme: {
                 extend: {
                     colors: {
-                        background: '#030712', /* tailwind gray-950 */
-                        surface: '#111827', /* tailwind gray-900 */
+                        background: '#09090b', /* app background (zinc-950) */
+                        surface: '#18181b', /* app surface (zinc-900) */
                         primary: '#3b82f6', /* blue-500 */
                         accent: '#8b5cf6', /* violet-500 */
                     },
@@ -51,7 +51,7 @@
     <!-- Custom Styles -->
     <style>
         body {
-            background-color: #030712;
+            background-color: #09090b;
             color: #f8fafc;
             overflow-x: hidden;
         }
@@ -67,7 +67,7 @@
 
         /* Glassmorphism */
         .glass {
-            background: rgba(17, 24, 39, 0.7);
+            background: rgba(24, 24, 27, 0.7); /* zinc-900 */
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -89,7 +89,7 @@
             position: relative;
             border-radius: 44px;
             padding: 10px;
-            background: linear-gradient(145deg, #1f2937, #0f172a);
+            background: linear-gradient(145deg, #27272a, #18181b);
             box-shadow: 
                 0 0 0 1px rgba(255,255,255,0.1),
                 inset 0 0 0 2px rgba(0,0,0,0.8),
